@@ -24,7 +24,7 @@ Original review 2026-09-04. **Updated 2026-09-05 after the fixes on branch
 | 15 | `console.log` of full client and job forms | **Removed** |
 | 16 | `test/` vs `tests/` confusion | **Fixed** — now `database/` and `tests/` |
 | 17 | No rate limiting on sign-in | **Open** |
-| 18 | `gen/cv.php`, `gen/mou.php` reachable unauthenticated | **Open** |
+| 18 | `gen/cv.php`, `gen/mou.php` reachable unauthenticated | **Fixed** — replaced by `gen/cv/` and `gen/mou/`, behind sign-in |
 | 19 | `.env` read by `parse_ini_file` in 14 files | **Open** |
 | 20 | Single shared admin account, no attribution | **Open** |
 
@@ -53,10 +53,6 @@ fix itself and caught by tests written before the code:
 **Rate limiting on sign-in** is the significant one. One shared password with
 unlimited attempts is the weakest point left. A `login_attempts` table keyed by
 username and IP, with an escalating delay, fits the existing SQLite setup.
-
-**Put `gen/cv.php` and `gen/mou.php` behind `Api::requireAuth()`.** They
-currently render an empty template so nothing leaks, but they are the only
-unauthenticated pages in the admin area and that will not stay true.
 
 **Centralise `.env` loading.** Fourteen files call `parse_ini_file` and index
 the result directly; a missing or malformed file produces a different unhelpful
