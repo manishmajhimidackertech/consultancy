@@ -39,9 +39,14 @@
   gap: 1rem;
   background-color: var(--header-footer-color);
 }
-#editor legend {
-  padding: 0 0.5ch;
-  color: var(--placeholder-color);
+#editor .editor_group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+}
+#editor .editor_group h2 {
+  margin: 0 0 0 0.2rem;
+  font-size: 1.1rem;
 }
 #editor label {
   display: flex;
@@ -137,7 +142,6 @@
   top: 5rem;
   max-height: calc(100dvh - 6rem);
   overflow: auto;
-  border-radius: 0.8rem;
 }
 @media (orientation: portrait) {
   #preview {
@@ -244,7 +248,6 @@
     position: static;
     max-height: none;
     overflow: visible;
-    border-radius: 0;
   }
   .paper {
     zoom: 1 !important;

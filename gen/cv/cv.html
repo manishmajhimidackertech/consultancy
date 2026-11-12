@@ -30,143 +30,155 @@
       <header>{{HEADER_CONTENTS}}</header>
       <section id="generator">
         <form id="editor" autocomplete="off">
-          <fieldset>
-            <legend>Personal Details</legend>
-            <label>
-              Full Name
-              <input type="text" name="name" />
-            </label>
-            <label>
-              Address
-              <input type="text" name="address" />
-            </label>
-            <div class="pair">
+          <section class="editor_group">
+            <h2 id="personal_details_heading">Personal Details</h2>
+            <fieldset aria-labelledby="personal_details_heading">
               <label>
-                Mobile Number
-                <input type="text" name="mobileNumber" />
+                Full Name
+                <input type="text" name="name" />
               </label>
               <label>
-                Email
-                <input type="email" name="email" />
+                Address
+                <input type="text" name="address" />
               </label>
-            </div>
-            <div class="pair">
-              <label>
-                Gender
-                <select name="gender">
-                  <option value="Male">Male</option>
-                  <option value="Female">Female</option>
-                  <option value="Prefer Not Say">Prefer Not Say</option>
-                </select>
+              <div class="pair">
+                <label>
+                  Mobile Number
+                  <input type="text" name="mobileNumber" />
+                </label>
+                <label>
+                  Email
+                  <input type="email" name="email" />
+                </label>
+              </div>
+              <div class="pair">
+                <label>
+                  Gender
+                  <select name="gender">
+                    <option value="Male">Male</option>
+                    <option value="Female">Female</option>
+                    <option value="Prefer Not Say">Prefer Not Say</option>
+                  </select>
+                </label>
+                <label>
+                  Date of Birth
+                  <input type="date" name="dateOfBirth" />
+                </label>
+              </div>
+              <div class="pair">
+                <label>
+                  Nationality
+                  <input type="text" name="nationality" value="Nepali" />
+                </label>
+                <label>
+                  Bike License
+                  <select name="bikeLicense">
+                    <option value="no">Not Obtained</option>
+                    <option value="yes">Obtained</option>
+                  </select>
+                </label>
+              </div>
+              <label class="inline">
+                <input type="checkbox" name="showPhoto" checked />
+                Show the profile picture
               </label>
-              <label>
-                Date of Birth
-                <input type="date" name="dateOfBirth" />
-              </label>
-            </div>
-            <div class="pair">
-              <label>
-                Nationality
-                <input type="text" name="nationality" value="Nepali" />
-              </label>
-              <label>
-                Bike License
-                <select name="bikeLicense">
-                  <option value="no">Not Obtained</option>
-                  <option value="yes">Obtained</option>
-                </select>
-              </label>
-            </div>
-            <label class="inline">
-              <input type="checkbox" name="showPhoto" checked />
-              Show the profile picture
-            </label>
-          </fieldset>
+            </fieldset>
+          </section>
 
-          <fieldset>
-            <legend>Career Objective</legend>
-            <label>
-              Positions Sought
-              <input
-                type="text"
-                name="positions"
-                placeholder="separate them with commas"
-              />
-            </label>
-            <label>
-              Objective
-              <textarea name="objective" rows="3"></textarea>
-            </label>
-            <p class="hint">
-              Written from the positions until you change it yourself.
-            </p>
-          </fieldset>
-
-          <fieldset>
-            <legend>Education</legend>
-            <div class="entry_rows" id="education">
-              <!-- Rows are added by entryRows.js -->
-            </div>
-            <button
-              type="button"
-              class="green_button transparent_button add_entry"
-              onclick="addEntryRow('education', true)"
-            >
-              Add Qualification
-            </button>
-          </fieldset>
-
-          <fieldset>
-            <legend>Work Experience</legend>
-            <div class="entry_rows" id="experience">
-              <!-- Rows are added by entryRows.js -->
-            </div>
-            <button
-              type="button"
-              class="green_button transparent_button add_entry"
-              onclick="addEntryRow('experience', true)"
-            >
-              Add Experience
-            </button>
-          </fieldset>
-
-          <fieldset>
-            <legend>Skills &amp; Languages</legend>
-            <label>
-              Skills
-              <input
-                type="text"
-                name="skills"
-                placeholder="separate them with commas"
-              />
-            </label>
-            <label>
-              Languages
-              <input type="text" name="languages" value="Nepali, English" />
-            </label>
-          </fieldset>
-
-          <fieldset>
-            <legend>Declaration</legend>
-            <div class="pair">
+          <section class="editor_group">
+            <h2 id="career_objective_heading">Career Objective</h2>
+            <fieldset aria-labelledby="career_objective_heading">
               <label>
-                Place
-                <input type="text" name="place" />
+                Positions Sought
+                <input
+                  type="text"
+                  name="positions"
+                  placeholder="separate them with commas"
+                />
               </label>
               <label>
-                Date
-                <input type="date" name="signedOn" />
+                Objective
+                <textarea name="objective" rows="3"></textarea>
               </label>
-            </div>
-            <label class="inline">
-              <input type="checkbox" name="showFooter" checked />
-              Print "Prepared by {{COMPANY_NAME}}" at the foot
-            </label>
-            <p class="hint">
-              Empty fields are left out of the CV, except place and date, which
-              print as a line to fill in by hand.
-            </p>
-          </fieldset>
+              <p class="hint">
+                Written from the positions until you change it yourself.
+              </p>
+            </fieldset>
+          </section>
+
+          <section class="editor_group">
+            <h2 id="education_heading">Education</h2>
+            <fieldset aria-labelledby="education_heading">
+              <div class="entry_rows" id="education">
+                <!-- Rows are added by entryRows.js -->
+              </div>
+              <button
+                type="button"
+                class="green_button transparent_button add_entry"
+                onclick="addEntryRow('education', true)"
+              >
+                Add Qualification
+              </button>
+            </fieldset>
+          </section>
+
+          <section class="editor_group">
+            <h2 id="work_experience_heading">Work Experience</h2>
+            <fieldset aria-labelledby="work_experience_heading">
+              <div class="entry_rows" id="experience">
+                <!-- Rows are added by entryRows.js -->
+              </div>
+              <button
+                type="button"
+                class="green_button transparent_button add_entry"
+                onclick="addEntryRow('experience', true)"
+              >
+                Add Experience
+              </button>
+            </fieldset>
+          </section>
+
+          <section class="editor_group">
+            <h2 id="skills_and_languages_heading">Skills &amp; Languages</h2>
+            <fieldset aria-labelledby="skills_and_languages_heading">
+              <label>
+                Skills
+                <input
+                  type="text"
+                  name="skills"
+                  placeholder="separate them with commas"
+                />
+              </label>
+              <label>
+                Languages
+                <input type="text" name="languages" value="Nepali, English" />
+              </label>
+            </fieldset>
+          </section>
+
+          <section class="editor_group">
+            <h2 id="declaration_heading">Declaration</h2>
+            <fieldset aria-labelledby="declaration_heading">
+              <div class="pair">
+                <label>
+                  Place
+                  <input type="text" name="place" />
+                </label>
+                <label>
+                  Date
+                  <input type="date" name="signedOn" />
+                </label>
+              </div>
+              <label class="inline">
+                <input type="checkbox" name="showFooter" checked />
+                Print "Prepared by {{COMPANY_NAME}}" at the foot
+              </label>
+              <p class="hint">
+                Empty fields are left out of the CV, except place and date, which
+                print as a line to fill in by hand.
+              </p>
+            </fieldset>
+          </section>
 
           <section id="actions">
             <button
