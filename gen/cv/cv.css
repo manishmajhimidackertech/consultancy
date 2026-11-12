@@ -1,5 +1,5 @@
 .cv_heading {
-  padding-bottom: 6mm;
+  padding-bottom: 5mm;
   border-bottom: 2px solid var(--primary-color);
   display: flex;
   align-items: center;
@@ -8,8 +8,8 @@
 .cv_heading img {
   outline: 2px solid hsl(220, 10%, 91%);
   border-radius: 50%;
-  width: 32mm;
-  height: 32mm;
+  width: 30mm;
+  height: 30mm;
   object-fit: cover;
 }
 .cv_identity {
@@ -39,7 +39,7 @@
 }
 
 .cv_section {
-  margin-top: 6mm;
+  margin-top: 5mm;
   display: flex;
   flex-direction: column;
   gap: 2mm;
