@@ -154,6 +154,7 @@
   box-sizing: border-box;
   margin: 0 auto;
   padding: 18mm 18mm 14mm 18mm;
+  position: relative;
   width: 210mm;
   min-height: 297mm;
   display: flex;
@@ -205,9 +206,13 @@
   color: hsl(230, 5%, 40%);
 }
 
+/*
+ * Drawn in the bottom margin rather than after the content, so a document
+ * that just fills its page does not push this one line onto a page of its own.
+ */
 .paper .paper_footer {
-  margin-top: auto;
-  padding-top: 6mm;
+  position: absolute;
+  inset: auto 18mm 6mm 18mm;
   font-size: 8pt;
   text-align: center;
   color: hsl(230, 5%, 40%);
