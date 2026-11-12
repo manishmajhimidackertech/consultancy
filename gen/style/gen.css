@@ -1,0 +1,253 @@
+/*
+ * Shared layout for the document generators: an editor on the left and the
+ * document itself on the right, drawn at A4 so that what is on screen is what
+ * comes out of the printer.
+ */
+
+#generator {
+  margin: 2.5rem 5rem 4rem 5rem;
+  display: grid;
+  gap: 2.5rem;
+}
+@media (orientation: landscape) {
+  #generator {
+    grid-template-columns: minmax(22rem, 2fr) 3fr;
+    align-items: start;
+  }
+}
+@media (orientation: portrait) {
+  #generator {
+    margin: 2rem 2rem 3rem 2rem;
+    grid-template-columns: 1fr;
+  }
+}
+
+/* Editor */
+
+#editor {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+#editor fieldset {
+  margin: 0;
+  border: 1px solid var(--hover-color);
+  border-radius: 0.8rem;
+  padding: 1rem 1.4rem 1.4rem 1.4rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  background-color: var(--header-footer-color);
+}
+#editor legend {
+  padding: 0 0.5ch;
+  color: var(--placeholder-color);
+}
+#editor label {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  font-size: 0.9rem;
+}
+#editor [hidden] {
+  display: none;
+}
+#editor label.inline {
+  flex-direction: row;
+  align-items: center;
+}
+#editor .pair {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1rem;
+}
+
+#editor input:not([type="checkbox"], [type="radio"]),
+#editor select,
+#editor textarea {
+  box-sizing: border-box;
+  width: 100%;
+  font-family: inherit;
+  background-color: var(--input-color);
+}
+#editor textarea {
+  border: 1px solid var(--hover-color);
+  border-radius: 0.4rem;
+  padding: 0.6rem 1ch;
+  min-height: 5rem;
+  font-size: 1rem;
+  color: var(--placeholder-color);
+  resize: vertical;
+}
+#editor input:focus,
+#editor select:focus,
+#editor textarea:focus {
+  color: var(--foreground-color);
+}
+
+.hint {
+  margin: 0;
+  font-size: 0.8rem;
+  font-style: italic;
+  color: var(--placeholder-color);
+}
+
+/* Rows that can be added and removed, such as qualifications */
+
+.entry_rows {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+.entry_rows:empty {
+  display: none;
+}
+.entry_row {
+  border-bottom: 1px dashed var(--hover-color);
+  padding-bottom: 1rem;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 0.5rem;
+}
+.entry_row .wide {
+  grid-column: 1 / -1;
+}
+.entry_row .red_button {
+  grid-column: 1 / -1;
+  justify-self: end;
+}
+.add_entry {
+  align-self: flex-start;
+}
+
+#actions {
+  display: flex;
+  justify-content: end;
+  gap: 1rem;
+}
+#actions > button {
+  border-radius: 0.4rem;
+  padding: 0.6rem 1ch;
+}
+
+/* Document */
+
+#preview {
+  position: sticky;
+  top: 5rem;
+  max-height: calc(100dvh - 6rem);
+  overflow: auto;
+  border-radius: 0.8rem;
+}
+@media (orientation: portrait) {
+  #preview {
+    position: static;
+    max-height: none;
+  }
+}
+
+/*
+ * The paper keeps its own colours in both themes: it is a picture of a printed
+ * page, and a CV in light text on charcoal is not something anyone will post.
+ */
+.paper {
+  box-sizing: border-box;
+  margin: 0 auto;
+  padding: 18mm 18mm 14mm 18mm;
+  width: 210mm;
+  min-height: 297mm;
+  display: flex;
+  flex-direction: column;
+  color: hsl(0, 0%, 12%);
+  background-color: hsl(0, 0%, 100%);
+  box-shadow: var(--box-shadow-for-white-boxes);
+  color-scheme: light;
+  font-family: Arial, Helvetica, sans-serif, system-ui;
+  font-size: 10.5pt;
+  line-height: 1.45;
+}
+.paper h1,
+.paper h2,
+.paper h3,
+.paper p {
+  margin: 0;
+}
+.paper h1,
+.paper h2 {
+  font-family: "Times New Roman", Times, serif;
+  font-weight: normal;
+}
+
+.paper .blank {
+  display: inline-block;
+  min-width: 14ch;
+  border-bottom: 1px dotted currentColor;
+}
+
+.paper .signature {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.5mm;
+  min-width: 55mm;
+}
+.paper .signature_line {
+  width: 100%;
+  border-bottom: 1px solid currentColor;
+  height: 12mm;
+}
+
+.paper .paper_message {
+  margin: auto;
+  font-size: 1.1rem;
+  font-style: italic;
+  text-align: center;
+  color: hsl(230, 5%, 40%);
+}
+
+.paper .paper_footer {
+  margin-top: auto;
+  padding-top: 6mm;
+  font-size: 8pt;
+  text-align: center;
+  color: hsl(230, 5%, 40%);
+}
+
+/* Printing: the page and nothing else */
+
+@page {
+  size: A4;
+  margin: 0;
+}
+
+@media print {
+  body {
+    display: block;
+    background-color: white;
+  }
+  aside,
+  main > header,
+  #editor,
+  .toast-container {
+    display: none !important;
+  }
+  #generator {
+    margin: 0;
+    display: block;
+  }
+  #preview {
+    position: static;
+    max-height: none;
+    overflow: visible;
+    border-radius: 0;
+  }
+  .paper {
+    zoom: 1 !important;
+    margin: 0;
+    /* A page exactly as tall as the sheet rounds up to a second, blank one. */
+    min-height: 296mm;
+    box-shadow: none;
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+}

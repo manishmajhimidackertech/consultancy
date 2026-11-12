@@ -1,7 +1,16 @@
 <?php
     class UI {
-        public static function getAsideContents(): string {
-            return <<<'NOWDOC'
+        /**
+         * The admin sidebar.
+         *
+         * Its links are relative, written for a page two levels deep under
+         * admin/ (admin/listClients/ and so on). A page that lives elsewhere at
+         * the same depth, such as the document generators under gen/, passes
+         * the path from itself to admin/ so the links still land where they
+         * should.
+         */
+        public static function getAsideContents(string $adminPath = '../'): string {
+            return <<<HEREDOC
                         <nav>
                             <img
                             src="../../assets/img/logo.webp"
@@ -14,7 +23,7 @@
                             <ul>
                                 <li>
                                 <a
-                                    href="../"
+                                    href="{$adminPath}"
                                     class="view-existing"
                                     title="Payment and Application Status"
                                     >Summary</a
@@ -22,7 +31,7 @@
                                 </li>
                                 <li>
                                 <a
-                                    href="../interestedPeople/"
+                                    href="{$adminPath}interestedPeople/"
                                     class="view-existing"
                                     title="Interested People"
                                     >Potential Clients</a
@@ -36,14 +45,14 @@
                             <ul>
                                 <li>
                                 <a
-                                    href="../listClients/"
+                                    href="{$adminPath}listClients/"
                                     class="view-existing"
                                     title="View Clients"
                                     >List all</a
                                 >
                                 </li>
                                 <li>
-                                <a href="../addClient/" class="add-new" title="Add Client"
+                                <a href="{$adminPath}addClient/" class="add-new" title="Add Client"
                                     >Add New</a
                                 >
                                 </li>
@@ -54,12 +63,12 @@
                             <summary>Vacancies</summary>
                             <ul>
                                 <li>
-                                <a href="../listJobs/" class="view-existing" title="View Vacancies"
+                                <a href="{$adminPath}listJobs/" class="view-existing" title="View Vacancies"
                                     >List all</a
                                 >
                                 </li>
                                 <li>
-                                <a href="../addJob/" class="add-new" title="Add Vacancy"
+                                <a href="{$adminPath}addJob/" class="add-new" title="Add Vacancy"
                                     >Add New</a
                                 >
                                 </li>
@@ -71,7 +80,7 @@
                             <ul>
                                 <li>
                                 <a
-                                    href="../archivedClients/"
+                                    href="{$adminPath}archivedClients/"
                                     class="view-existing"
                                     title="View Old Clients"
                                     >Clients</a
@@ -79,7 +88,7 @@
                                 </li>
                                 <li>
                                 <a
-                                    href="../archivedJobs/"
+                                    href="{$adminPath}archivedJobs/"
                                     class="view-existing"
                                     title="View Old Jobs"
                                     >Vacancies</a
@@ -89,7 +98,7 @@
                             </details>
                         </nav>
                         <button type="button" id="logout_button">Logout</button>
-                    NOWDOC;
+                    HEREDOC;
         }
 
         public static function getHeaderContents(string $heading): string {

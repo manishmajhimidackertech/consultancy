@@ -84,6 +84,7 @@ them before the site is reachable by anyone else.
 ├── index.php              Public landing page
 ├── login/                 Sign-in
 ├── admin/                 The admin screens, one directory per screen
+├── gen/                   Printable documents for one client: the CV and the MOU
 ├── api/                   JSON endpoints, grouped by verb (add, fetch, search…)
 ├── auth/                  Session lifecycle and CORS headers
 ├── utils/                 Shared logic: validation, uploads, CSRF, search
@@ -122,6 +123,22 @@ Api::requireCsrf();
 own copy of these checks, and they had drifted: some answered HTTP 200 with an
 error body, some returned the raw exception message to the caller, and one had
 no authentication check at all.
+
+---
+
+## Documents
+
+From a client's details in **List Clients**, *Create MOU* and *Generate CV*
+open a page under `gen/` with an editor beside an A4 copy of the document. The
+editor starts from the client's record; anything the register does not hold
+(education, a citizenship number, the fee) is typed in there, and a field left
+empty prints as a dotted line to fill in by hand. *Print / Save as PDF* prints
+the page alone, and the saved file is named after the client.
+
+What is typed into the editor is not stored. The documents are drawn in the
+browser from `api/fetch/client.php`, which returns one client and the vacancies
+they have been put forward for; the MOU uses those to name the position and,
+when the fee is a share of the first salary, to work out the amount.
 
 ---
 
@@ -191,9 +208,6 @@ begin with a domain the reader trusts.
   nothing records which person archived a client or marked a fee as paid.
 - **`.env` is read with `parse_ini_file` in fourteen separate files.** It works,
   but a missing `.env` produces an unhelpful failure in each of them.
-- **`gen/cv.php` and `gen/mou.php` are reachable without signing in.** They
-  render an empty template rather than client data, so nothing leaks as it stands, but
-  they should be behind the same check as everything else.
 - The databases are SQLite files written on every request, which is fine for one
   office and would not survive being deployed twice against shared storage.
 

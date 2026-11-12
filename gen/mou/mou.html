@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Create MOU | {{COMPANY_NAME}}</title>
+
+    <link rel="stylesheet" href="../../assets/css/theme.css" />
+    <link rel="stylesheet" href="../../assets/css/dialog.css" />
+    <script src="../../assets/js/toastDialog.js"></script>
+
+    <link rel="stylesheet" href="../../admin/style/admin.css" />
+    <link rel="stylesheet" href="../../admin/style/notifications.css" />
+    <script src="../../admin/script/admin.js"></script>
+    <script src="../../admin/script/notifications.js"></script>
+
+    <link rel="stylesheet" href="../style/gen.css" />
+    <script src="../script/fetchClient.js"></script>
+    <script src="../script/paper.js"></script>
+    <script src="../script/printDocument.js"></script>
+
+    <link rel="stylesheet" href="./mou.css" />
+    <script src="./amountInWords.js"></script>
+    <script src="./mou.js"></script>
+    <script src="./renderMOU.js"></script>
+  </head>
+  <body>
+    <aside>{{ASIDE_CONTENTS}}</aside>
+    <main>
+      <header>{{HEADER_CONTENTS}}</header>
+      <section id="generator">
+        <form id="editor" autocomplete="off">
+          <fieldset>
+            <legend>Agreement</legend>
+            <div class="pair">
+              <label>
+                Reference No.
+                <input type="text" name="reference" />
+              </label>
+              <label>
+                Date
+                <input type="date" name="signedOn" />
+              </label>
+            </div>
+            <label>
+              Valid For (months)
+              <input type="number" name="validityMonths" min="1" value="6" />
+            </label>
+          </fieldset>
+
+          <fieldset>
+            <legend>Consultancy</legend>
+            <label>
+              Office Address
+              <input type="text" name="companyAddress" />
+            </label>
+            <div class="pair">
+              <label>
+                Signed By
+                <input type="text" name="representative" />
+              </label>
+              <label>
+                Designation
+                <input type="text" name="designation" />
+              </label>
+            </div>
+          </fieldset>
+
+          <fieldset>
+            <legend>Candidate</legend>
+            <label>
+              Full Name
+              <input type="text" name="name" />
+            </label>
+            <label>
+              Address
+              <input type="text" name="address" />
+            </label>
+            <div class="pair">
+              <label>
+                Mobile Number
+                <input type="text" name="mobileNumber" />
+              </label>
+              <label>
+                Citizenship No.
+                <input type="text" name="citizenshipNumber" />
+              </label>
+            </div>
+          </fieldset>
+
+          <fieldset>
+            <legend>Placement</legend>
+            <label>
+              Vacancy Applied For
+              <select name="application">
+                <option value="">None, a general placement</option>
+                <!-- The client's applications are added by mou.js -->
+              </select>
+            </label>
+            <label>
+              Position Sought
+              <input type="text" name="position" />
+            </label>
+            <div class="pair">
+              <label>
+                Employer
+                <input type="text" name="employer" />
+              </label>
+              <label>
+                Monthly Salary (NPR)
+                <input type="number" name="salary" min="0" step="500" />
+              </label>
+            </div>
+          </fieldset>
+
+          <fieldset>
+            <legend>Service Fee</legend>
+            <div class="pair">
+              <label>
+                Charged As
+                <select name="feeType">
+                  <option value="fixed">Fixed amount</option>
+                  <option value="percent">Share of salary</option>
+                </select>
+              </label>
+              <label id="fee_amount">
+                Amount (NPR)
+                <input type="number" name="feeAmount" min="0" step="500" />
+              </label>
+              <label id="fee_percent" hidden>
+                Share (%)
+                <input type="number" name="feePercent" min="0" max="100" />
+              </label>
+            </div>
+            <label>
+              Payable Within (days of accepting an offer)
+              <input type="number" name="paymentDays" min="1" value="7" />
+            </label>
+          </fieldset>
+
+          <fieldset>
+            <legend>Further Terms</legend>
+            <label>
+              Additional Clauses
+              <textarea
+                name="additionalTerms"
+                rows="3"
+                placeholder="one clause per line"
+              ></textarea>
+            </label>
+            <label class="inline">
+              <input type="checkbox" name="showWitnesses" checked />
+              Include signatures for two witnesses
+            </label>
+            <p class="hint">
+              Anything left empty prints as a line to fill in by hand.
+            </p>
+          </fieldset>
+
+          <section id="actions">
+            <button
+              type="button"
+              onclick="backToClients()"
+              class="positive_button transparent_button"
+            >
+              Back to Clients
+            </button>
+            <button
+              type="button"
+              onclick="printMOU()"
+              class="negative_button confirm_button"
+            >
+              Print / Save as PDF
+            </button>
+          </section>
+        </form>
+
+        <section id="preview">
+          <article
+            id="paper"
+            class="paper mou"
+            data-company-name="{{COMPANY_NAME}}"
+            data-company-domain="{{DOMAIN_NAME}}"
+          >
+            <p class="paper_message">Loading the client&hellip;</p>
+          </article>
+        </section>
+      </section>
+    </main>
+  </body>
+</html>

@@ -1,0 +1,132 @@
+.cv_heading {
+  padding-bottom: 6mm;
+  border-bottom: 2px solid var(--primary-color);
+  display: flex;
+  align-items: center;
+  gap: 8mm;
+}
+.cv_heading img {
+  outline: 2px solid hsl(220, 10%, 91%);
+  border-radius: 50%;
+  width: 32mm;
+  height: 32mm;
+  object-fit: cover;
+}
+.cv_identity {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5mm;
+}
+.cv_identity h1 {
+  font-size: 26pt;
+  line-height: 1.1;
+}
+.cv_positions {
+  font-style: italic;
+  color: var(--primary-color);
+}
+.cv_contact {
+  padding: 0;
+  display: flex;
+  flex-wrap: wrap;
+  font-size: 9.5pt;
+  list-style-type: none;
+  color: hsl(230, 5%, 30%);
+}
+.cv_contact li:not(:last-child)::after {
+  content: "\2002|\2002";
+  color: hsl(220, 10%, 75%);
+}
+
+.cv_section {
+  margin-top: 6mm;
+  display: flex;
+  flex-direction: column;
+  gap: 2mm;
+}
+.cv_section h2 {
+  padding-bottom: 1mm;
+  border-bottom: 1px solid hsl(220, 10%, 85%);
+  font-size: 13pt;
+  font-variant: small-caps;
+  letter-spacing: 0.04em;
+  color: var(--secondary-color);
+}
+
+.cv_table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 10pt;
+}
+.cv_table th,
+.cv_table td {
+  border: 1px solid hsl(220, 10%, 85%);
+  padding: 1.5mm 2mm;
+  text-align: left;
+  vertical-align: top;
+}
+.cv_table th {
+  font-weight: normal;
+  color: hsl(230, 5%, 40%);
+  background-color: hsl(210, 20%, 96%);
+}
+
+.cv_experience {
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 3mm;
+  list-style-type: none;
+}
+.cv_experience_title {
+  display: flex;
+  justify-content: space-between;
+  gap: 4mm;
+}
+.cv_experience_title span {
+  font-size: 9.5pt;
+  font-style: italic;
+  color: hsl(230, 5%, 40%);
+}
+.cv_experience p {
+  margin-top: 1mm;
+  white-space: pre-line;
+}
+
+.cv_tags {
+  padding: 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1.5mm;
+  list-style-type: none;
+}
+.cv_tags li {
+  border: 1px solid hsl(220, 10%, 85%);
+  border-radius: 0.4rem;
+  padding: 0.5mm 2.5mm;
+  font-size: 9.5pt;
+}
+
+.cv_details {
+  display: grid;
+  grid-template-columns: max-content 1fr;
+  gap: 1mm 6mm;
+}
+.cv_details dt {
+  color: hsl(230, 5%, 40%);
+}
+
+.cv_declaration {
+  display: flex;
+  flex-direction: column;
+  gap: 8mm;
+}
+.cv_sign_off {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+}
+.cv_sign_off p + p {
+  margin-top: 1.5mm;
+}

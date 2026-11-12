@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Generate CV | {{COMPANY_NAME}}</title>
+
+    <link rel="stylesheet" href="../../assets/css/theme.css" />
+    <link rel="stylesheet" href="../../assets/css/dialog.css" />
+    <script src="../../assets/js/toastDialog.js"></script>
+
+    <link rel="stylesheet" href="../../admin/style/admin.css" />
+    <link rel="stylesheet" href="../../admin/style/notifications.css" />
+    <script src="../../admin/script/admin.js"></script>
+    <script src="../../admin/script/notifications.js"></script>
+
+    <link rel="stylesheet" href="../style/gen.css" />
+    <script src="../script/fetchClient.js"></script>
+    <script src="../script/paper.js"></script>
+    <script src="../script/printDocument.js"></script>
+
+    <link rel="stylesheet" href="./cv.css" />
+    <script src="./cv.js"></script>
+    <script src="./entryRows.js"></script>
+    <script src="./renderCV.js"></script>
+  </head>
+  <body>
+    <aside>{{ASIDE_CONTENTS}}</aside>
+    <main>
+      <header>{{HEADER_CONTENTS}}</header>
+      <section id="generator">
+        <form id="editor" autocomplete="off">
+          <fieldset>
+            <legend>Personal Details</legend>
+            <label>
+              Full Name
+              <input type="text" name="name" />
+            </label>
+            <label>
+              Address
+              <input type="text" name="address" />
+            </label>
+            <div class="pair">
+              <label>
+                Mobile Number
+                <input type="text" name="mobileNumber" />
+              </label>
+              <label>
+                Email
+                <input type="email" name="email" />
+              </label>
+            </div>
+            <div class="pair">
+              <label>
+                Gender
+                <select name="gender">
+                  <option value="Male">Male</option>
+                  <option value="Female">Female</option>
+                  <option value="Prefer Not Say">Prefer Not Say</option>
+                </select>
+              </label>
+              <label>
+                Date of Birth
+                <input type="date" name="dateOfBirth" />
+              </label>
+            </div>
+            <div class="pair">
+              <label>
+                Nationality
+                <input type="text" name="nationality" value="Nepali" />
+              </label>
+              <label>
+                Bike License
+                <select name="bikeLicense">
+                  <option value="no">Not Obtained</option>
+                  <option value="yes">Obtained</option>
+                </select>
+              </label>
+            </div>
+            <label class="inline">
+              <input type="checkbox" name="showPhoto" checked />
+              Show the profile picture
+            </label>
+          </fieldset>
+
+          <fieldset>
+            <legend>Career Objective</legend>
+            <label>
+              Positions Sought
+              <input
+                type="text"
+                name="positions"
+                placeholder="separate them with commas"
+              />
+            </label>
+            <label>
+              Objective
+              <textarea name="objective" rows="3"></textarea>
+            </label>
+            <p class="hint">
+              Written from the positions until you change it yourself.
+            </p>
+          </fieldset>
+
+          <fieldset>
+            <legend>Education</legend>
+            <div class="entry_rows" id="education">
+              <!-- Rows are added by entryRows.js -->
+            </div>
+            <button
+              type="button"
+              class="green_button transparent_button add_entry"
+              onclick="addEntryRow('education', true)"
+            >
+              Add Qualification
+            </button>
+          </fieldset>
+
+          <fieldset>
+            <legend>Work Experience</legend>
+            <div class="entry_rows" id="experience">
+              <!-- Rows are added by entryRows.js -->
+            </div>
+            <button
+              type="button"
+              class="green_button transparent_button add_entry"
+              onclick="addEntryRow('experience', true)"
+            >
+              Add Experience
+            </button>
+          </fieldset>
+
+          <fieldset>
+            <legend>Skills &amp; Languages</legend>
+            <label>
+              Skills
+              <input
+                type="text"
+                name="skills"
+                placeholder="separate them with commas"
+              />
+            </label>
+            <label>
+              Languages
+              <input type="text" name="languages" value="Nepali, English" />
+            </label>
+          </fieldset>
+
+          <fieldset>
+            <legend>Declaration</legend>
+            <div class="pair">
+              <label>
+                Place
+                <input type="text" name="place" />
+              </label>
+              <label>
+                Date
+                <input type="date" name="signedOn" />
+              </label>
+            </div>
+            <label class="inline">
+              <input type="checkbox" name="showFooter" checked />
+              Print "Prepared by {{COMPANY_NAME}}" at the foot
+            </label>
+            <p class="hint">
+              Empty fields are left out of the CV, except place and date, which
+              print as a line to fill in by hand.
+            </p>
+          </fieldset>
+
+          <section id="actions">
+            <button
+              type="button"
+              onclick="backToClients()"
+              class="positive_button transparent_button"
+            >
+              Back to Clients
+            </button>
+            <button
+              type="button"
+              onclick="printCV()"
+              class="negative_button confirm_button"
+            >
+              Print / Save as PDF
+            </button>
+          </section>
+        </form>
+
+        <section id="preview">
+          <article
+            id="paper"
+            class="paper cv"
+            data-company-name="{{COMPANY_NAME}}"
+          >
+            <p class="paper_message">Loading the client&hellip;</p>
+          </article>
+        </section>
+      </section>
+    </main>
+  </body>
+</html>
