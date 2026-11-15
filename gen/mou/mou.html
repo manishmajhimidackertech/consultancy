@@ -77,10 +77,6 @@
                 Full Name
                 <input type="text" name="name" />
               </label>
-              <label>
-                Address
-                <input type="text" name="address" />
-              </label>
               <div class="pair">
                 <label>
                   Mobile Number
@@ -91,13 +87,17 @@
                   <input type="text" name="citizenshipNumber" />
                 </label>
               </div>
+              <label class="wide">
+                Address
+                <input type="text" name="address" />
+              </label>
             </fieldset>
           </section>
 
           <section class="editor_group">
             <h2 id="placement_heading">Placement</h2>
             <fieldset aria-labelledby="placement_heading">
-              <label>
+              <label class="wide">
                 Vacancy Applied For
                 <select name="application">
                   <option value="">None, a general placement</option>
@@ -187,6 +187,7 @@
           </section>
         </form>
 
+        <h2 class="preview_heading">Preview</h2>
         <section id="preview">
           <article
             id="paper"

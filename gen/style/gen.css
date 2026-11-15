@@ -1,24 +1,22 @@
 /*
- * Shared layout for the document generators: an editor on the left and the
- * document itself on the right, drawn at A4 so that what is on screen is what
+ * Shared layout for the document generators: the editor across the top and
+ * the document beneath it, drawn at A4 so that what is on screen is what
  * comes out of the printer.
+ *
+ * The two used to sit side by side, which next to the sidebar read as three
+ * narrow columns. Stacked, the editor lays its fields out in rows of three,
+ * as Add Client does, and the page keeps one reading direction.
  */
 
 #generator {
   margin: 2.5rem 5rem 4rem 5rem;
-  display: grid;
-  gap: 2.5rem;
-}
-@media (orientation: landscape) {
-  #generator {
-    grid-template-columns: minmax(22rem, 2fr) 3fr;
-    align-items: start;
-  }
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
 }
 @media (orientation: portrait) {
   #generator {
     margin: 2rem 2rem 3rem 2rem;
-    grid-template-columns: 1fr;
   }
 }
 
@@ -44,9 +42,13 @@
   flex-direction: column;
   gap: 0.6rem;
 }
-#editor .editor_group h2 {
+#editor .editor_group h2,
+.preview_heading {
   margin: 0 0 0 0.2rem;
   font-size: 1.1rem;
+}
+.preview_heading {
+  margin-top: 1rem;
 }
 #editor label {
   display: flex;
@@ -65,6 +67,28 @@
   display: grid;
   grid-template-columns: repeat(2, 1fr);
   gap: 1rem;
+}
+
+@media (orientation: landscape) {
+  #editor fieldset {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.5rem;
+    align-items: start;
+  }
+  /* Paired fields join the row of three rather than sharing one cell. */
+  #editor .pair {
+    display: contents;
+  }
+  #editor fieldset > .wide,
+  #editor fieldset > .hint,
+  #editor fieldset > .entry_rows,
+  #editor fieldset > label:has(textarea) {
+    grid-column: 1 / -1;
+  }
+  #editor label.inline {
+    align-self: center;
+  }
 }
 
 #editor input:not([type="checkbox"], [type="radio"]),
@@ -121,8 +145,14 @@
   grid-column: 1 / -1;
   justify-self: end;
 }
+@media (orientation: landscape) {
+  .entry_row {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
 .add_entry {
   align-self: flex-start;
+  justify-self: start;
 }
 
 #actions {
@@ -136,19 +166,6 @@
 }
 
 /* Document */
-
-#preview {
-  position: sticky;
-  top: 5rem;
-  max-height: calc(100dvh - 6rem);
-  overflow: auto;
-}
-@media (orientation: portrait) {
-  #preview {
-    position: static;
-    max-height: none;
-  }
-}
 
 /*
  * The paper keeps its own colours in both themes: it is a picture of a printed
@@ -237,17 +254,13 @@
   aside,
   main > header,
   #editor,
+  .preview_heading,
   .toast-container {
     display: none !important;
   }
   #generator {
     margin: 0;
     display: block;
-  }
-  #preview {
-    position: static;
-    max-height: none;
-    overflow: visible;
   }
   .paper {
     zoom: 1 !important;
