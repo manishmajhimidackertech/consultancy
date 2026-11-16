@@ -10,8 +10,6 @@
     }
 
     $env = parse_ini_file(dirname(__DIR__, 2) . DIRECTORY_SEPARATOR . '.env');
-    // Escaped because, unlike the admin pages, it is also written into an
-    // attribute here, which the generator script reads for the page footer.
     $companyName = htmlspecialchars($env["COMPANY_NAME"], ENT_QUOTES);
 
     require_once dirname(__DIR__, 2) . DIRECTORY_SEPARATOR . 'templates' . DIRECTORY_SEPARATOR . 'UI.php';

@@ -1,24 +1,19 @@
 /*
- * Shared layout for the document generators: an editor on the left and the
- * document itself on the right, drawn at A4 so that what is on screen is what
- * comes out of the printer.
+ * Shared layout for the document generators: the editor fills the page, with
+ * its fields in rows of three as Add Client lays them out, and the document
+ * itself is seen through Preview. The document is drawn at A4 so that what is
+ * on screen is what comes out of the printer.
  */
 
 #generator {
   margin: 2.5rem 5rem 4rem 5rem;
-  display: grid;
-  gap: 2.5rem;
-}
-@media (orientation: landscape) {
-  #generator {
-    grid-template-columns: minmax(22rem, 2fr) 3fr;
-    align-items: start;
-  }
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
 }
 @media (orientation: portrait) {
   #generator {
     margin: 2rem 2rem 3rem 2rem;
-    grid-template-columns: 1fr;
   }
 }
 
@@ -67,6 +62,28 @@
   gap: 1rem;
 }
 
+@media (orientation: landscape) {
+  #editor fieldset {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.5rem;
+    align-items: start;
+  }
+  /* Paired fields join the row of three rather than sharing one cell. */
+  #editor .pair {
+    display: contents;
+  }
+  #editor fieldset > .wide,
+  #editor fieldset > .hint,
+  #editor fieldset > .entry_rows,
+  #editor fieldset > label:has(textarea) {
+    grid-column: 1 / -1;
+  }
+  #editor label.inline {
+    align-self: center;
+  }
+}
+
 #editor input:not([type="checkbox"], [type="radio"]),
 #editor select,
 #editor textarea {
@@ -107,9 +124,12 @@
 .entry_rows:empty {
   display: none;
 }
+/* A dashed line between rows only: a single row has nothing to be set apart from. */
+.entry_row + .entry_row {
+  border-top: 1px dashed var(--hover-color);
+  padding-top: 1rem;
+}
 .entry_row {
-  border-bottom: 1px dashed var(--hover-color);
-  padding-bottom: 1rem;
   display: grid;
   grid-template-columns: repeat(2, 1fr);
   gap: 0.5rem;
@@ -117,37 +137,60 @@
 .entry_row .wide {
   grid-column: 1 / -1;
 }
-.entry_row .red_button {
+@media (orientation: landscape) {
+  .entry_row {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+.entry_controls {
   grid-column: 1 / -1;
-  justify-self: end;
-}
-.add_entry {
-  align-self: flex-start;
-}
-
-#actions {
   display: flex;
-  justify-content: end;
+  justify-content: flex-end;
   gap: 1rem;
 }
-#actions > button {
+
+/* A note or an option on the left, the page's buttons on the right. */
+#actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+}
+#actions .hint {
+  margin-left: 0.2rem;
+}
+.action_buttons {
+  margin-left: auto;
+  display: flex;
+  gap: 1rem;
+}
+.action_buttons > button {
   border-radius: 0.4rem;
   padding: 0.6rem 1ch;
 }
 
+/*
+ * The print preview, shown in the admin area's .modal dialog. Fixed rather
+ * than absolute so it opens in view however far down the form the page has
+ * been scrolled, since Preview sits at the foot of it.
+ */
+.modal.print_preview {
+  position: fixed;
+}
+/*
+ * The page sits straight on the dialog: its own shadow is all the separation
+ * it needs, so there is no panel behind it.
+ */
+.print_preview #message {
+  margin-top: 1.5rem;
+}
+
 /* Document */
 
+/* Drawn off screen; Preview shows a copy, and printing shows the original. */
 #preview {
-  position: sticky;
-  top: 5rem;
-  max-height: calc(100dvh - 6rem);
-  overflow: auto;
-}
-@media (orientation: portrait) {
-  #preview {
-    position: static;
-    max-height: none;
-  }
+  display: none;
 }
 
 /*
@@ -158,7 +201,6 @@
   box-sizing: border-box;
   margin: 0 auto;
   padding: 18mm 18mm 14mm 18mm;
-  position: relative;
   width: 210mm;
   min-height: 297mm;
   display: flex;
@@ -202,26 +244,6 @@
   height: 12mm;
 }
 
-.paper .paper_message {
-  margin: auto;
-  font-size: 1.1rem;
-  font-style: italic;
-  text-align: center;
-  color: hsl(230, 5%, 40%);
-}
-
-/*
- * Drawn in the bottom margin rather than after the content, so a document
- * that just fills its page does not push this one line onto a page of its own.
- */
-.paper .paper_footer {
-  position: absolute;
-  inset: auto 18mm 6mm 18mm;
-  font-size: 8pt;
-  text-align: center;
-  color: hsl(230, 5%, 40%);
-}
-
 /* Printing: the page and nothing else */
 
 @page {
@@ -237,6 +259,7 @@
   aside,
   main > header,
   #editor,
+  .modal,
   .toast-container {
     display: none !important;
   }
@@ -245,12 +268,9 @@
     display: block;
   }
   #preview {
-    position: static;
-    max-height: none;
-    overflow: visible;
+    display: block;
   }
   .paper {
-    zoom: 1 !important;
     margin: 0;
     /* A page exactly as tall as the sheet rounds up to a second, blank one. */
     min-height: 296mm;

@@ -256,10 +256,8 @@ function renderWitnesses() {
     const witness = paperElement("div");
     witness.appendChild(paperElement("h3", heading));
 
-    const line = paperElement("div");
-    line.appendChild(paperParagraph(["Name: ", valueOrBlank("")]));
-    line.appendChild(paperParagraph(["Signature: ", valueOrBlank("")]));
-    witness.appendChild(line);
+    witness.appendChild(paperParagraph(["Name: ", valueOrBlank("")]));
+    witness.appendChild(paperParagraph(["Signature: ", valueOrBlank("")]));
 
     witnesses.appendChild(witness);
   });

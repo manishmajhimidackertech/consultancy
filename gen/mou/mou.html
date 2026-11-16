@@ -7,6 +7,7 @@
 
     <link rel="stylesheet" href="../../assets/css/theme.css" />
     <link rel="stylesheet" href="../../assets/css/dialog.css" />
+    <script src="../../assets/js/defaultDialog.js"></script>
     <script src="../../assets/js/toastDialog.js"></script>
 
     <link rel="stylesheet" href="../../admin/style/admin.css" />
@@ -77,10 +78,6 @@
                 Full Name
                 <input type="text" name="name" />
               </label>
-              <label>
-                Address
-                <input type="text" name="address" />
-              </label>
               <div class="pair">
                 <label>
                   Mobile Number
@@ -91,13 +88,17 @@
                   <input type="text" name="citizenshipNumber" />
                 </label>
               </div>
+              <label class="wide">
+                Address
+                <input type="text" name="address" />
+              </label>
             </fieldset>
           </section>
 
           <section class="editor_group">
             <h2 id="placement_heading">Placement</h2>
             <fieldset aria-labelledby="placement_heading">
-              <label>
+              <label class="wide">
                 Vacancy Applied For
                 <select name="application">
                   <option value="">None, a general placement</option>
@@ -163,39 +164,40 @@
                 <input type="checkbox" name="showWitnesses" checked />
                 Include signatures for two witnesses
               </label>
-              <p class="hint">
-                Anything left empty prints as a line to fill in by hand.
-              </p>
             </fieldset>
           </section>
 
           <section id="actions">
-            <button
-              type="button"
-              onclick="backToClients()"
-              class="positive_button transparent_button"
-            >
-              Back to Clients
-            </button>
-            <button
-              type="button"
-              onclick="printMOU()"
-              class="negative_button confirm_button"
-            >
-              Print / Save as PDF
-            </button>
+            <p class="hint">
+              Anything left empty prints as a line to fill in by hand.
+            </p>
+            <div class="action_buttons">
+              <button
+                type="button"
+                onclick="backToClients()"
+                class="positive_button transparent_button"
+              >
+                Back
+              </button>
+              <button
+                type="button"
+                onclick="previewMOU()"
+                class="negative_button confirm_button"
+              >
+                Preview
+              </button>
+            </div>
           </section>
         </form>
 
+        <!-- Drawn as the editor changes; seen through Preview, and printed. -->
         <section id="preview">
           <article
             id="paper"
             class="paper mou"
             data-company-name="{{COMPANY_NAME}}"
             data-company-domain="{{DOMAIN_NAME}}"
-          >
-            <p class="paper_message">Loading the client&hellip;</p>
-          </article>
+          ></article>
         </section>
       </section>
     </main>

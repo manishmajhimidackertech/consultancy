@@ -3,6 +3,8 @@
  *
  * Rows are read back by field name, and a row left entirely empty is ignored,
  * so the editor can always offer a blank row without it reaching the paper.
+ * Add appends a row and Remove takes off the last one; a row in the middle is
+ * dropped by clearing its fields.
  */
 
 const ENTRY_FIELDS = {
@@ -43,21 +45,31 @@ function addEntryRow(kind, focus = false) {
     row.appendChild(input);
   });
 
-  const removeButton = document.createElement("button");
-  removeButton.type = "button";
-  removeButton.textContent = "Remove";
-  removeButton.className = "red_button transparent_button";
-  removeButton.onclick = () => {
-    row.remove();
-    announceEditorChange();
-  };
-  row.appendChild(removeButton);
-
   container.appendChild(row);
+  updateRemoveButton(kind);
 
   if (focus) {
     row.querySelector("input, textarea").focus();
   }
+}
+
+/** Take off the last row of a group. */
+function removeEntryRow(kind) {
+  const rows = document.querySelectorAll(`#${kind} .entry_row`);
+
+  if (rows.length === 0) {
+    return;
+  }
+
+  rows[rows.length - 1].remove();
+  updateRemoveButton(kind);
+  announceEditorChange();
+}
+
+/** Remove has nothing to do once a group has no rows left. */
+function updateRemoveButton(kind) {
+  const rowCount = document.querySelectorAll(`#${kind} .entry_row`).length;
+  document.getElementById(`${kind}_remove`).disabled = rowCount === 0;
 }
 
 /** The filled-in rows of one group, as plain objects. */

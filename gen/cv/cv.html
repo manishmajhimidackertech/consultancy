@@ -7,6 +7,7 @@
 
     <link rel="stylesheet" href="../../assets/css/theme.css" />
     <link rel="stylesheet" href="../../assets/css/dialog.css" />
+    <script src="../../assets/js/defaultDialog.js"></script>
     <script src="../../assets/js/toastDialog.js"></script>
 
     <link rel="stylesheet" href="../../admin/style/admin.css" />
@@ -88,7 +89,7 @@
           <section class="editor_group">
             <h2 id="career_objective_heading">Career Objective</h2>
             <fieldset aria-labelledby="career_objective_heading">
-              <label>
+              <label class="wide">
                 Positions Sought
                 <input
                   type="text"
@@ -112,13 +113,23 @@
               <div class="entry_rows" id="education">
                 <!-- Rows are added by entryRows.js -->
               </div>
-              <button
-                type="button"
-                class="green_button transparent_button add_entry"
-                onclick="addEntryRow('education', true)"
-              >
-                Add Qualification
-              </button>
+              <div class="entry_controls">
+                <button
+                  type="button"
+                  class="green_button transparent_button"
+                  onclick="addEntryRow('education', true)"
+                >
+                  Add
+                </button>
+                <button
+                  type="button"
+                  class="red_button transparent_button"
+                  id="education_remove"
+                  onclick="removeEntryRow('education')"
+                >
+                  Remove
+                </button>
+              </div>
             </fieldset>
           </section>
 
@@ -128,13 +139,23 @@
               <div class="entry_rows" id="experience">
                 <!-- Rows are added by entryRows.js -->
               </div>
-              <button
-                type="button"
-                class="green_button transparent_button add_entry"
-                onclick="addEntryRow('experience', true)"
-              >
-                Add Experience
-              </button>
+              <div class="entry_controls">
+                <button
+                  type="button"
+                  class="green_button transparent_button"
+                  onclick="addEntryRow('experience', true)"
+                >
+                  Add
+                </button>
+                <button
+                  type="button"
+                  class="red_button transparent_button"
+                  id="experience_remove"
+                  onclick="removeEntryRow('experience')"
+                >
+                  Remove
+                </button>
+              </div>
             </fieldset>
           </section>
 
@@ -169,43 +190,36 @@
                   <input type="date" name="signedOn" />
                 </label>
               </div>
-              <label class="inline">
-                <input type="checkbox" name="showFooter" checked />
-                Print "Prepared by {{COMPANY_NAME}}" at the foot
-              </label>
-              <p class="hint">
-                Empty fields are left out of the CV, except place and date, which
-                print as a line to fill in by hand.
-              </p>
             </fieldset>
           </section>
 
           <section id="actions">
-            <button
-              type="button"
-              onclick="backToClients()"
-              class="positive_button transparent_button"
-            >
-              Back to Clients
-            </button>
-            <button
-              type="button"
-              onclick="printCV()"
-              class="negative_button confirm_button"
-            >
-              Print / Save as PDF
-            </button>
+            <p class="hint">
+              Empty fields are left out of the CV, except place and date, which
+              print as a line to fill in by hand.
+            </p>
+            <div class="action_buttons">
+              <button
+                type="button"
+                onclick="backToClients()"
+                class="positive_button transparent_button"
+              >
+                Back
+              </button>
+              <button
+                type="button"
+                onclick="previewCV()"
+                class="negative_button confirm_button"
+              >
+                Preview
+              </button>
+            </div>
           </section>
         </form>
 
+        <!-- Drawn as the editor changes; seen through Preview, and printed. -->
         <section id="preview">
-          <article
-            id="paper"
-            class="paper cv"
-            data-company-name="{{COMPANY_NAME}}"
-          >
-            <p class="paper_message">Loading the client&hellip;</p>
-          </article>
+          <article id="paper" class="paper cv"></article>
         </section>
       </section>
     </main>

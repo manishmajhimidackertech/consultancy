@@ -3,7 +3,7 @@ document.addEventListener("DOMContentLoaded", async () => {
 
   if (uuid === "") {
     disableEditor();
-    showPaperMessage("No client was chosen. Open a client from List Clients and press Create MOU.");
+    showLoadError("No client was chosen. Open a client from List Clients and press Create MOU.");
     return;
   }
 
@@ -11,8 +11,7 @@ document.addEventListener("DOMContentLoaded", async () => {
     await fetchClient(uuid);
   } catch (error) {
     disableEditor();
-    toastDialog("error", error.message);
-    showPaperMessage(error.message);
+    showLoadError(error.message);
     return;
   }
 
@@ -25,7 +24,6 @@ document.addEventListener("DOMContentLoaded", async () => {
   form.elements["feeType"].addEventListener("change", showFeeField);
 
   refreshMOU();
-  window.addEventListener("resize", fitPaper);
 });
 
 /** Fill the editor from the client's record. */
@@ -125,15 +123,14 @@ function readMOUForm() {
 
 function refreshMOU() {
   renderMOU(readMOUForm());
-  fitPaper();
 }
 
-function printMOU() {
+function previewMOU() {
   if (!client) {
-    toastDialog("warning", "There is no MOU to print yet.");
+    toastDialog("warning", "There is no MOU to preview yet.");
     return;
   }
 
   const name = document.forms["editor"].elements["name"].value.trim() || client.name;
-  printDocument(`MOU - ${name}`);
+  printPreviewDialog(`MOU - ${name}`);
 }
