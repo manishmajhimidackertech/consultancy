@@ -70,10 +70,12 @@ function printPreviewDialog(documentName) {
 
   // Everything in the dialog but the page keeps its size, so the page gets
   // whatever height is left on screen, with a small margin around the dialog.
-  const message = dialog.querySelector("#message");
+  // The dialog is measured with the page shrunk, because the browser caps a
+  // dialog's height and a full-size page would hide how much it overflows.
   const pageHeight = page.getBoundingClientRect().height;
+  page.style.zoom = 0.1;
   const surrounds =
-    dialog.getBoundingClientRect().height - message.clientHeight + 32;
+    dialog.getBoundingClientRect().height - page.getBoundingClientRect().height;
   const roomForPage = window.innerHeight - surrounds - 48;
   page.style.zoom = Math.max(0.4, Math.min(1, roomForPage / pageHeight));
   printButton.focus();

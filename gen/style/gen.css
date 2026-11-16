@@ -179,15 +179,11 @@
   position: fixed;
 }
 /*
- * The page keeps the shadow it has everywhere else; the padding is there so
- * the scrolling area does not clip it.
+ * The page sits straight on the dialog: its own shadow is all the separation
+ * it needs, so there is no panel behind it.
  */
 .print_preview #message {
-  max-height: calc(100dvh - 14rem);
-  overflow: auto;
-  padding: 2rem;
-  border-radius: 0.4rem;
-  background-color: var(--background-color);
+  margin-top: 1.5rem;
 }
 
 /* Document */
