@@ -7,6 +7,7 @@
 
     <link rel="stylesheet" href="../../assets/css/theme.css" />
     <link rel="stylesheet" href="../../assets/css/dialog.css" />
+    <script src="../../assets/js/defaultDialog.js"></script>
     <script src="../../assets/js/toastDialog.js"></script>
 
     <link rel="stylesheet" href="../../admin/style/admin.css" />
@@ -163,27 +164,29 @@
                 <input type="checkbox" name="showWitnesses" checked />
                 Include signatures for two witnesses
               </label>
-              <p class="hint">
-                Anything left empty prints as a line to fill in by hand.
-              </p>
             </fieldset>
           </section>
 
           <section id="actions">
-            <button
-              type="button"
-              onclick="backToClients()"
-              class="positive_button transparent_button"
-            >
-              Back to Clients
-            </button>
-            <button
-              type="button"
-              onclick="printMOU()"
-              class="negative_button confirm_button"
-            >
-              Print / Save as PDF
-            </button>
+            <p class="hint">
+              Anything left empty prints as a line to fill in by hand.
+            </p>
+            <div class="action_buttons">
+              <button
+                type="button"
+                onclick="backToClients()"
+                class="positive_button transparent_button"
+              >
+                Back
+              </button>
+              <button
+                type="button"
+                onclick="previewMOU()"
+                class="negative_button confirm_button"
+              >
+                Preview
+              </button>
+            </div>
           </section>
         </form>
 

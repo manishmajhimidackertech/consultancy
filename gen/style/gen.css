@@ -141,28 +141,55 @@
 .entry_row .wide {
   grid-column: 1 / -1;
 }
-.entry_row .red_button {
-  grid-column: 1 / -1;
-  justify-self: end;
-}
 @media (orientation: landscape) {
   .entry_row {
     grid-template-columns: repeat(4, 1fr);
   }
 }
-.add_entry {
-  align-self: flex-start;
-  justify-self: start;
+.entry_controls {
+  grid-column: 1 / -1;
+  display: flex;
+  justify-content: space-between;
 }
 
+/* A note or an option on the left, the page's buttons on the right. */
 #actions {
   display: flex;
-  justify-content: end;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
   gap: 1rem;
 }
-#actions > button {
+#actions .hint {
+  margin-left: 0.2rem;
+}
+.action_buttons {
+  margin-left: auto;
+  display: flex;
+  gap: 1rem;
+}
+.action_buttons > button {
   border-radius: 0.4rem;
   padding: 0.6rem 1ch;
+}
+
+/*
+ * The print preview, shown in the admin area's .modal dialog. Fixed rather
+ * than absolute so it opens in view however far down the form the page has
+ * been scrolled, since Preview sits at the foot of it.
+ */
+.modal.print_preview {
+  position: fixed;
+}
+.print_preview #message {
+  max-height: calc(100dvh - 14rem);
+  overflow: auto;
+  padding: 1rem;
+  border-radius: 0.4rem;
+  background-color: var(--background-color);
+}
+.print_preview .paper {
+  box-shadow: var(--box-shadow-for-input-types);
 }
 
 /* Document */
@@ -255,6 +282,7 @@
   main > header,
   #editor,
   .preview_heading,
+  .modal,
   .toast-container {
     display: none !important;
   }

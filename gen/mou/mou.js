@@ -128,12 +128,12 @@ function refreshMOU() {
   fitPaper();
 }
 
-function printMOU() {
+function previewMOU() {
   if (!client) {
-    toastDialog("warning", "There is no MOU to print yet.");
+    toastDialog("warning", "There is no MOU to preview yet.");
     return;
   }
 
   const name = document.forms["editor"].elements["name"].value.trim() || client.name;
-  printDocument(`MOU - ${name}`);
+  printPreviewDialog(`MOU - ${name}`);
 }

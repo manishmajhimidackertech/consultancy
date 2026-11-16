@@ -45,8 +45,6 @@
   gap: 2mm;
 }
 .cv_section h2 {
-  padding-bottom: 1mm;
-  border-bottom: 1px solid hsl(220, 10%, 85%);
   font-size: 13pt;
   font-variant: small-caps;
   letter-spacing: 0.04em;

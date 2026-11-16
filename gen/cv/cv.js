@@ -108,12 +108,12 @@ function refreshCV() {
   fitPaper();
 }
 
-function printCV() {
+function previewCV() {
   if (!client) {
-    toastDialog("warning", "There is no CV to print yet.");
+    toastDialog("warning", "There is no CV to preview yet.");
     return;
   }
 
   const name = document.forms["editor"].elements["name"].value.trim() || client.name;
-  printDocument(`CV - ${name}`);
+  printPreviewDialog(`CV - ${name}`);
 }
