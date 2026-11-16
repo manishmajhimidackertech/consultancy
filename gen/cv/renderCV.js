@@ -37,12 +37,6 @@ function renderCV(cv) {
   }
 
   paper.appendChild(cvSection("Declaration", renderDeclaration(cv)));
-
-  if (cv.showFooter && paper.dataset.companyName) {
-    paper.appendChild(
-      paperElement("div", `Prepared by ${paper.dataset.companyName}`, "paper_footer")
-    );
-  }
 }
 
 function cvSection(title, content) {

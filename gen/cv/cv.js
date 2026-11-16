@@ -5,7 +5,7 @@ document.addEventListener("DOMContentLoaded", async () => {
 
   if (uuid === "") {
     disableEditor();
-    showPaperMessage("No client was chosen. Open a client from List Clients and press Generate CV.");
+    showLoadError("No client was chosen. Open a client from List Clients and press Generate CV.");
     return;
   }
 
@@ -13,8 +13,7 @@ document.addEventListener("DOMContentLoaded", async () => {
     await fetchClient(uuid);
   } catch (error) {
     disableEditor();
-    toastDialog("error", error.message);
-    showPaperMessage(error.message);
+    showLoadError(error.message);
     return;
   }
 
@@ -37,7 +36,6 @@ document.addEventListener("DOMContentLoaded", async () => {
   });
 
   refreshCV();
-  window.addEventListener("resize", fitPaper);
 });
 
 /** Fill the editor from the client's record. */
@@ -99,13 +97,11 @@ function readCVForm() {
     languages: splitList(form.elements["languages"].value),
     place: form.elements["place"].value.trim(),
     signedOn: form.elements["signedOn"].value,
-    showFooter: form.elements["showFooter"].checked,
   };
 }
 
 function refreshCV() {
   renderCV(readCVForm());
-  fitPaper();
 }
 
 function previewCV() {

@@ -33,7 +33,6 @@ function printPreviewDialog(documentName) {
 
   const page = document.getElementById("paper").cloneNode(true);
   page.removeAttribute("id");
-  page.style.zoom = 1;
   dialog.querySelector("#message").appendChild(page);
 
   const actionsSection = document.createElement("section");

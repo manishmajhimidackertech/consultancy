@@ -190,18 +190,14 @@
                   <input type="date" name="signedOn" />
                 </label>
               </div>
-              <p class="hint">
-                Empty fields are left out of the CV, except place and date, which
-                print as a line to fill in by hand.
-              </p>
             </fieldset>
           </section>
 
           <section id="actions">
-            <label class="inline">
-              <input type="checkbox" name="showFooter" checked />
-              Print "Prepared by {{COMPANY_NAME}}" at the foot
-            </label>
+            <p class="hint">
+              Empty fields are left out of the CV, except place and date, which
+              print as a line to fill in by hand.
+            </p>
             <div class="action_buttons">
               <button
                 type="button"
@@ -221,15 +217,9 @@
           </section>
         </form>
 
-        <h2 class="preview_heading">Preview</h2>
+        <!-- Drawn as the editor changes; seen through Preview, and printed. -->
         <section id="preview">
-          <article
-            id="paper"
-            class="paper cv"
-            data-company-name="{{COMPANY_NAME}}"
-          >
-            <p class="paper_message">Loading the client&hellip;</p>
-          </article>
+          <article id="paper" class="paper cv"></article>
         </section>
       </section>
     </main>

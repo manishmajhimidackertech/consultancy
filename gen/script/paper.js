@@ -124,27 +124,16 @@ function uploadUrl(storedPath, placeholder) {
   return `../../${storedPath}`;
 }
 
-/** Replace the paper's contents with a single line of explanation. */
-function showPaperMessage(message) {
-  const paper = document.getElementById("paper");
-  paper.replaceChildren(paperElement("p", message, "paper_message"));
-  fitPaper();
-}
-
 /**
- * Shrink the paper to fit beside the editor.
+ * Explain, in the admin area's alert dialog, why there is nothing to edit.
  *
- * The page is drawn at its real size so the on-screen copy and the printed
- * copy break lines in the same places; on a narrower screen it is scaled down
- * as a whole rather than reflowed. Printing resets the scale in gen.css.
+ * alertDialog() writes its message as HTML, so the text is escaped first:
+ * it can carry the server's reply.
  */
-function fitPaper() {
-  const preview = document.getElementById("preview");
-  const paper = document.getElementById("paper");
-
-  paper.style.zoom = 1;
-  const scale = Math.min(1, preview.clientWidth / paper.offsetWidth);
-  paper.style.zoom = scale;
+function showLoadError(message) {
+  const text = document.createElement("span");
+  text.textContent = message;
+  alertDialog("Error", text.innerHTML);
 }
 
 /** Disable every control in the editor, for when there is no client to edit. */

@@ -1,11 +1,8 @@
 /*
- * Shared layout for the document generators: the editor across the top and
- * the document beneath it, drawn at A4 so that what is on screen is what
- * comes out of the printer.
- *
- * The two used to sit side by side, which next to the sidebar read as three
- * narrow columns. Stacked, the editor lays its fields out in rows of three,
- * as Add Client does, and the page keeps one reading direction.
+ * Shared layout for the document generators: the editor fills the page, with
+ * its fields in rows of three as Add Client lays them out, and the document
+ * itself is seen through Preview. The document is drawn at A4 so that what is
+ * on screen is what comes out of the printer.
  */
 
 #generator {
@@ -42,13 +39,9 @@
   flex-direction: column;
   gap: 0.6rem;
 }
-#editor .editor_group h2,
-.preview_heading {
+#editor .editor_group h2 {
   margin: 0 0 0 0.2rem;
   font-size: 1.1rem;
-}
-.preview_heading {
-  margin-top: 1rem;
 }
 #editor label {
   display: flex;
@@ -149,7 +142,8 @@
 .entry_controls {
   grid-column: 1 / -1;
   display: flex;
-  justify-content: space-between;
+  justify-content: flex-end;
+  gap: 1rem;
 }
 
 /* A note or an option on the left, the page's buttons on the right. */
@@ -181,18 +175,24 @@
 .modal.print_preview {
   position: fixed;
 }
+/*
+ * The page keeps the shadow it has everywhere else; the padding is there so
+ * the scrolling area does not clip it.
+ */
 .print_preview #message {
   max-height: calc(100dvh - 14rem);
   overflow: auto;
-  padding: 1rem;
+  padding: 2rem;
   border-radius: 0.4rem;
   background-color: var(--background-color);
 }
-.print_preview .paper {
-  box-shadow: var(--box-shadow-for-input-types);
-}
 
 /* Document */
+
+/* Drawn off screen; Preview shows a copy, and printing shows the original. */
+#preview {
+  display: none;
+}
 
 /*
  * The paper keeps its own colours in both themes: it is a picture of a printed
@@ -202,7 +202,6 @@
   box-sizing: border-box;
   margin: 0 auto;
   padding: 18mm 18mm 14mm 18mm;
-  position: relative;
   width: 210mm;
   min-height: 297mm;
   display: flex;
@@ -246,26 +245,6 @@
   height: 12mm;
 }
 
-.paper .paper_message {
-  margin: auto;
-  font-size: 1.1rem;
-  font-style: italic;
-  text-align: center;
-  color: hsl(230, 5%, 40%);
-}
-
-/*
- * Drawn in the bottom margin rather than after the content, so a document
- * that just fills its page does not push this one line onto a page of its own.
- */
-.paper .paper_footer {
-  position: absolute;
-  inset: auto 18mm 6mm 18mm;
-  font-size: 8pt;
-  text-align: center;
-  color: hsl(230, 5%, 40%);
-}
-
 /* Printing: the page and nothing else */
 
 @page {
@@ -281,7 +260,6 @@
   aside,
   main > header,
   #editor,
-  .preview_heading,
   .modal,
   .toast-container {
     display: none !important;
@@ -290,8 +268,10 @@
     margin: 0;
     display: block;
   }
+  #preview {
+    display: block;
+  }
   .paper {
-    zoom: 1 !important;
     margin: 0;
     /* A page exactly as tall as the sheet rounds up to a second, blank one. */
     min-height: 296mm;
