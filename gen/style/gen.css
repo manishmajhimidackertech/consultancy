@@ -124,9 +124,12 @@
 .entry_rows:empty {
   display: none;
 }
+/* A dashed line between rows only: a single row has nothing to be set apart from. */
+.entry_row + .entry_row {
+  border-top: 1px dashed var(--hover-color);
+  padding-top: 1rem;
+}
 .entry_row {
-  border-bottom: 1px dashed var(--hover-color);
-  padding-bottom: 1rem;
   display: grid;
   grid-template-columns: repeat(2, 1fr);
   gap: 0.5rem;
